@@ -1,18 +1,18 @@
-import java.util.*;
+import java.util.ArrayList;
 
+// public class to create a new portfolio of stocks
+// contains list of stock symbols/amount in each stock
+// indeces of stock name/amount match in respective lists
+// portfolio has cash instance variable, constantly updating value of loose cash to invest
 public class Portfolio {
 
 	String name;
-	List<String> stocksInPortfolio = new ArrayList<String>();
-	List<Double> valuesInPortfolio = new ArrayList<Double>();
+	ArrayList<String> stocksInPortfolio = new ArrayList<String>();
+	ArrayList<Double> valuesInPortfolio = new ArrayList<Double>();
 	Double cash;
 	
-	Portfolio (String inputName, Double inputCash, 
-		List<String> inputStocksInPortfolio, List<Double> inputValuesInPortfolio) {
-	// public class to create a new portfolio of stocks
-	// contains list of stock symbols/amount in each stock
-	// indeces of stock name/amount match in respective lists
-	// portfolio has cash instance variable, constantly updating value of loose cash to invest
+	Portfolio (String inputName, Double inputCash, ArrayList<String> inputStocksInPortfolio, ArrayList<Double> inputValuesInPortfolio) {
+
 		name = inputName;
 		stocksInPortfolio = inputStocksInPortfolio;
 		valuesInPortfolio = inputValuesInPortfolio;
