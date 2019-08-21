@@ -1,24 +1,23 @@
-import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.lang.Math; 
 
+// public class to implement kMeans clustering algorithm on a vector ArrayList
 public class KMeans {
-// public class to implement kMeans clustering algorithm on a vector list
 
-	private Vector midpoint (List<Vector> vectors) { 
-	//computes + returns a midpoint Vector from a given list of Vectors
-	// throws exceptions for empty vector list, Vectors of different lengths
+	//computes + returns a midpoint Vector from a given ArrayList of Vectors
+	// throws exceptions for empty vector ArrayList, Vectors of different lengths
+	private Vector midpoint (ArrayList<Vector> vectors) { 
 		
-		List<Double> midpointCoordinates = new ArrayList<Double>();
+		ArrayList<Double> midpointCoordinates = new ArrayList<Double>();
 		int numVectors = vectors.size();
 
-		assert (numVectors > 0) : "Incompatible vector list for midpoint computation";
+		assert (numVectors > 0) : "Incompatible vector ArrayList for midpoint computation";
 
 		int lenVector = vectors.get(0).numbers.size();
 
 		for (int index = 0; index < numVectors; index++) {
 			int vectorSize = vectors.get(index).numbers.size();
-			assert (vectorSize == lenVector) : "Vector list contains inconsistent # of dimensions";
+			assert (vectorSize == lenVector) : "Vector ArrayList contains inconsistent # of dimensions";
 		}	
 			
 		for (int dimension = 0; dimension < lenVector; dimension++) {
@@ -34,18 +33,18 @@ public class KMeans {
 
 		return new Vector("midpoint", midpointCoordinates);
 	}
-	
-	private int closestCenter (Vector startVector, List<Vector> listOfCenters) { 
-	// given a starting vector and list of cluster centers
+
+	// given a starting vector and ArrayList of cluster centers
 	// iterates through centers, computes distance, updates closest center index if necessary
 	// returns index of closest center
+	private int closestCenter (Vector startVector, ArrayList<Vector> ArrayListOfCenters) { 
 
 		int closestIndex = 0;
-		double distanceToClosest = startVector.distance(startVector, listOfCenters.get(0));
+		double distanceToClosest = startVector.distance(startVector, ArrayListOfCenters.get(0));
 		
 		
-		for (int center = 0; center < listOfCenters.size(); center++) {
-			double distance = startVector.distance(startVector,listOfCenters.get(center));
+		for (int center = 0; center < ArrayListOfCenters.size(); center++) {
+			double distance = startVector.distance(startVector,ArrayListOfCenters.get(center));
 			
 			if (distance < distanceToClosest) {
 				closestIndex = center;
@@ -55,14 +54,15 @@ public class KMeans {
 		
 		return closestIndex;
 	}
-	
-	private boolean isClusteringFinished (List<Vector> oldCenters, List<Vector> currCenters) { 
-	// given 2 lists - old center vectors and new center vectors
+
+	// given 2 ArrayLists - old center vectors and new center vectors
 	// compares corresponding old center/new center by index
 	// computes normalized distance between old/new center (distance adjusted by magnitude)
 	// if normalized distance greater than very small threshold, clustering not finished
 	// repeats process for all centers, if all pass then clustering is done
 	// goal = to ensure center coordinates have changed very minimally between reclustering
+	private boolean isClusteringFinished (ArrayList<Vector> oldCenters, ArrayList<Vector> currCenters) { 
+
 
 		double NORMALIZATION_THRESHOLD = 0.001; //arbitrary threshold, can be manipulated
 
@@ -86,29 +86,29 @@ public class KMeans {
 		return true;
 	}
 	
-	private List<List<Vector>> emptyClusters (int quantity) { 
-	// initializes List of desired number of clusters (each cluster is a list of vectors)
+	// initializes ArrayList of desired number of clusters (each cluster is a ArrayList of vectors)
+	private ArrayList<ArrayList<Vector>> emptyClusters (int quantity) { 
 
 		assert (quantity > 0) : "Incompatible number of empty clusters desired";
 	
-		List<List<Vector>> clusterList = new ArrayList<List<Vector>>();
+		ArrayList<ArrayList<Vector>> clusterArrayList = new ArrayList<ArrayList<Vector>>();
 		
 		for (int count = 0; count < quantity; count++) {
-			List<Vector> cluster = new ArrayList<Vector>();
-			clusterList.add(cluster);
+			ArrayList<Vector> cluster = new ArrayList<Vector>();
+			clusterArrayList.add(cluster);
 		}
 		
-		return clusterList;
+		return clusterArrayList;
 	}
-			
-	public List<List<Vector>> cluster (List<Vector> vectors, int numClusters) {
+
 	// complete clustering algorithm
 	// iterates through all vectors, find closest center, add to corresponding cluster
 	// by calling isClusteringFinished method, determine if centers are consistent enough
 	// else, recompute cluster centers by calculating midpoint of clusters
-	// repeat until clustering is finished, return list of clusters
+	// repeat until clustering is finished, return ArrayList of clusters
+	public ArrayList<ArrayList<Vector>> cluster (ArrayList<Vector> vectors, int numClusters) {
 
-		assert (vectors.size() > 0) : " Incompatible vector list size";
+		assert (vectors.size() > 0) : " Incompatible vector ArrayList size";
 		assert  (numClusters > 1) : "Incompatible number of clusters";
 		assert (vectors.size() > numClusters) : "# Clusters desired incompatible";
 
@@ -118,27 +118,27 @@ public class KMeans {
 			assert (curr.numbers.size() == size) : "# Dimension inconsistency";
 		}
 	
-		List<List<Vector>> returnlist = new ArrayList<List<Vector>>(); 
+		ArrayList<ArrayList<Vector>> returnArrayList = new ArrayList<ArrayList<Vector>>(); 
 
 		int numVectors = vectors.size();
 		
-		List<Vector> currCenters = new ArrayList<Vector>();
+		ArrayList<Vector> currCenters = new ArrayList<Vector>();
 		for (int count = 0; count < numClusters; count++) { 
-		// chooses random centers to begin, adds to list of centers
+		// chooses random centers to begin, adds to ArrayList of centers
 			int randomIndex = (int)(Math.random() * numVectors);
 			currCenters.add(new Vector("current", vectors.get(randomIndex).numbers));
 		}
 
-		List<Vector> oldCenters = new ArrayList<Vector>(); 
-		// initializes old list of centers for isClusteringFinished method
+		ArrayList<Vector> oldCenters = new ArrayList<Vector>(); 
+		// initializes old ArrayList of centers for isClusteringFinished method
 
 		do { 
 		// main loop
 		// iterates through all vectors, for each vector finds closest center
-		// adds vector to cluster with index corresponding to center's index in center list
+		// adds vector to cluster with index corresponding to center's index in center ArrayList
 		// checks if clustering is complete, repeats as necessary
 			
-			List<List<Vector>> currClusters = emptyClusters(numClusters);
+			ArrayList<ArrayList<Vector>> currClusters = emptyClusters(numClusters);
 			
 
 			for (int index = 0; index < numVectors; index++) {
@@ -167,12 +167,11 @@ public class KMeans {
 			if (isClusteringFinished(oldCenters, currCenters)) { 
 			// check if clustering is complete
 				for (int index = 0; index < currClusters.size(); index ++) {
-					returnlist.add(currClusters.get(index));
+					returnArrayList.add(currClusters.get(index));
 				}
 			}
 			
 		} while (! isClusteringFinished(oldCenters, currCenters));
-		return returnlist;
+		return returnArrayList;
 	}
 }
-		
