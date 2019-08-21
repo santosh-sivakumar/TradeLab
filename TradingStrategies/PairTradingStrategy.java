@@ -1,5 +1,4 @@
-import java.util.*;
-import java.io.*;
+import java.util.ArrayList;
 
 public class PairTradingStrategy {
 
@@ -7,7 +6,7 @@ public class PairTradingStrategy {
 	Double thresholdPercentage;
 	Double volatilePercentage;
 	
-	PairTradingStrategy (String name, double thresholdPercentage, double volatilePercentage) {
+	PairTradingStrategy (double thresholdPercentage, double volatilePercentage) {
 	// public class to initialize new instance of the Pair Trading Strategy
 	// threshold percentage = range outside of which stocks should be sold/bought
 	// volatile percentage = what fraction of stock should be sold when deciding to sell
@@ -16,8 +15,7 @@ public class PairTradingStrategy {
 		volatilePercentage = volatilePercentage;
 	}
 
-	private void initialize (Portfolio port, DataCollection dc, DateModifications dm,
-		String startDate, String endDate) {
+	public void initialize (Portfolio port, DataCollection dc, DateModifications dm, String startDate, String endDate) {
 	// public method to initialize portfolio values on given date
 	// if all values not recorded on end date, decrement date using DataCollection method
 	// if all values not recorded on start date, increment date using DataCollection method
@@ -52,26 +50,34 @@ public class PairTradingStrategy {
 		avgRatio /= numRatios;		
 	}
 	
-	private void rebalancePortfolio (Portfolio port, int stockToBuy, int stockToSell) {
 	// if called, method will sell shares in one stock and buy shares in other (basic Pair Strategy)
 	// determine $$ to sell using amount in stock to sell/volatile percentage
 	// execute "sale" by holding $$ from sale, subtracting $$ from amount in sell Stock
 	// execute "buy" by adding $$ held to buy Stock
+	private void rebalancePortfolio (Portfolio port, DataCollection dc, String date, int stockToBuy, int stockToSell) {
+
+		String sellStockID = port.stocksInPortfolio.get(stockToSell) + "#" + date;
 	
-		double amountInStockToSell = (port.valuesInPortfolio).get(stockToSell);
-		double dollarsVolatile = (amountInStockToSell * volatilePercentage);
-		double amountAfterSale = (port.valuesInPortfolio).get(stockToSell) - dollarsVolatile;
-		(port.valuesInPortfolio).set(stockToSell, amountAfterSale);
+		double currNumSharesToSell = (port.valuesInPortfolio).get(stockToSell);
+		double currPriceOfShareToSell = dc.dataPoints.get(sellStockID).close;
+		double numSharesToSell = currNumSharesToSell * (0.01 * volatilePercentage);
+		double dollarsToMake = currPriceOfShareToSell * numSharesToSell;
+		port.cash += dollarsToMake;
+		double updatedNumSharesSell = (port.valuesInPortfolio).get(stockToSell) - numSharesToSell;
+		(port.valuesInPortfolio).set(stockToSell, updatedNumSharesSell);
 		
-		
-		double amountAfterBuy = (port.valuesInPortfolio).get(stockToBuy) + dollarsVolatile;
-		(port.valuesInPortfolio).set(stockToBuy, amountAfterBuy);
+		String buyStockID = port.stocksInPortfolio.get(stockToBuy) + "#" + date;
+
+		double currPriceOfShareToBuy = dc.dataPoints.get(buyStockID).close;
+		double numSharesToBuy = (port.valuesInPortfolio).get(stockToBuy) / currPriceOfShareToBuy;
+		double updatedNumSharesBuy = (port.valuesInPortfolio).get(stockToBuy) + numSharesToBuy;
+		(port.valuesInPortfolio).set(stockToBuy, updatedNumSharesBuy);
 	}
 
-	private void update (Portfolio port, DataCollection dc, String date) {
 	// method called on each trading day
 	// compute values in numerator/denominator of ratio - both stocks in pair, compute ratio
 	// determine if ratio exists on either side of threshold, call rebalance method correspondingly
+	private void update (Portfolio port, DataCollection dc, String date) {
 		
 		String num = (port.stocksInPortfolio.get(0) + "#" + date);
 		String denom = (port.stocksInPortfolio.get(1) + "#" + date);
@@ -80,19 +86,18 @@ public class PairTradingStrategy {
 		double currRatio = numerator.close/denominator.close;
 
 		if (currRatio > (avgRatio * (1.0 + thresholdPercentage))) {
-			rebalancePortfolio (port, 1, 0);
+			rebalancePortfolio (port, dc, date, 1, 0);
 		}
 		else if (currRatio < (avgRatio * (1.0 - thresholdPercentage))) {
-			rebalancePortfolio (port, 0, 1);
+			rebalancePortfolio (port, dc, date, 0, 1);
 		}
 	}
 	
-	public void allUpdates (Portfolio port, DataCollection dc, DateModifications dm,
-		String startDate, String endDate) {
 	// main method to execute all updates between given start/end dates
 	// checks if all stocks in portfolio recorded on end date, decrements correspondingly
 	// for each trading day, checks if all stocks recorded + increments as necessary
 	// calls update method on portfolio, subsequently increments date for next day
+	public void allUpdates (Portfolio port, DataCollection dc, DateModifications dm, String startDate, String endDate) {
 
 		String currentDate = startDate;
 
@@ -111,12 +116,3 @@ public class PairTradingStrategy {
 	}
 
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
