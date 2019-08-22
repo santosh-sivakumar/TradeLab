@@ -9,12 +9,12 @@ import java.io.BufferedReader;
 public class DataCollection {
 
 	String name;
-	HashMap<String,Boolean> tradingDays;
+	HashMap<String,Integer> tradingDays;
 	HashMap<String, Value> dataPoints;
 
 	DataCollection (String inputName) {
 
-		tradingDays = new HashMap<String,Boolean>();
+		tradingDays = new HashMap<String,Integer>();
 		dataPoints = new HashMap<String, Value>();
 		name = inputName;
 	}
@@ -51,7 +51,7 @@ public class DataCollection {
 	    		String stockID = stockName + "#" + stockDate;
 
 	    		Value curr = new Value (openValue, closeValue, volumeValue);
-	    		dataPoints.put(stockID, curr);	
+	    		dataPoints.put(stockID, curr);
     		}
 
     		stockReader.close();
@@ -59,7 +59,6 @@ public class DataCollection {
     	} catch (Exception e) {
     		System.out.println("File not compatible");
     	}
-
     	File tradingDayInput = new File (tradingDayFile);
     	assert (tradingDayInput.exists()): "File not found";
 
@@ -69,7 +68,7 @@ public class DataCollection {
   			String line; 
 
   			while ((line = dayReader.readLine()) != null) {
-	    		tradingDays.put(line, true);	
+	    		tradingDays.put(line, 1);	
     		}
 
     		dayReader.close();
@@ -105,7 +104,7 @@ public class DataCollection {
 	    		assert (stockNameArray.length > 0) : "Incompatible File Line";
 	    		String stockName = stockNameArray[0];
 
-				if (!vectorsAdded.containsKey(stockName)) {
+				if (vectorsAdded.get(stockName) == null) {
 	    			vectors.add(stockName);
 	    			vectorsAdded.put(stockName, 1);
 	    		}
@@ -116,7 +115,6 @@ public class DataCollection {
     	} catch (Exception e) {
     		System.out.println("File can't be parsed");
     	}
-    	
     	return vectors;
     }
 
@@ -150,8 +148,7 @@ public class DataCollection {
 	// computes number of shares for each stock through numSharesList method
 	// determines share price on priceDate through dataPoints + index of stock
 	// computes + returns value of Portfolio by summing value of numShares * share price
-	public double valueOfPortfolio (Portfolio port, 
-		String priceDate, DateModifications dm) {
+	public double valueOfPortfolio (Portfolio port, String priceDate, DateModifications dm) {
 
 		double valueOfPortfolio = 0.0;
 
@@ -163,7 +160,6 @@ public class DataCollection {
 			String stockName = port.stocksInPortfolio.get(i);
 			String stockID = stockName + "#" + priceDate;
 			valueOfPortfolio += (dataPoints.get(stockID).close * port.valuesInPortfolio.get(i));
-
 		}
 
 		return valueOfPortfolio;
