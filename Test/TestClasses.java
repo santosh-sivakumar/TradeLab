@@ -2,14 +2,15 @@
 // each method executes specified trading strategy
 // computes + returns value of portfolio with trading strategy implemented
 public class TestClasses {
-	
+
 	//execute MeanReversion Strategy
 	public double [] executeMeanReversion (Portfolio port, String strategyStartDate, String strategyEndDate, double thresholdPercentage, double volatilePercentage, DataCollection dc, DateModifications dm){
 
 
-		double [] results = new double [2];
+		double [] results = new double [4];
 		double initialValue = dc.valueOfPortfolio (port, strategyEndDate, dm);
 		results[0] = initialValue;
+		results[1] = port.cash;
 		
 		try {
 			MeanReversionStrategy mrs = new MeanReversionStrategy("mrs", thresholdPercentage, volatilePercentage);
@@ -20,9 +21,9 @@ public class TestClasses {
 			System.out.println("Strategy could not be executed");
 		}
 
-		
 		double finalValue = dc.valueOfPortfolio (port, strategyEndDate, dm);
-		results[1] = finalValue;
+		results[2] = finalValue;
+		results[3] = port.cash;
 
 		return results;
 	}
@@ -30,9 +31,10 @@ public class TestClasses {
 	//execute Moving-Day-Average Strategy on given portfolio
 	public double [] executeMDA (Portfolio port, String strategyStartDate, String strategyEndDate, double volatilePercentage, int longRunFrame, int shortRunFrame, DataCollection dc, DateModifications dm) {
 		
-		double [] results = new double [2];
+		double [] results = new double [4];
 		double initialValue = dc.valueOfPortfolio (port, strategyEndDate, dm);
 		results[0] = initialValue;
+		results[1] = port.cash;
 
 		try {
 			MDAStrategy mda = new MDAStrategy("mda", longRunFrame, shortRunFrame, volatilePercentage);
@@ -44,7 +46,8 @@ public class TestClasses {
 		}
 
 		double finalValue = dc.valueOfPortfolio (port, strategyEndDate, dm);
-		results[1] = finalValue;
+		results[2] = finalValue;
+		results[3] = port.cash;
 
 		return results;
 	}
@@ -52,9 +55,10 @@ public class TestClasses {
 	//execute generalized Pairs-Trading Strategy for cluster-based portfolio
 	public double [] executeCluster (Portfolio port, String strategyStartDate, String strategyEndDate, double volatilePercentage, double thresholdNumSD, DataCollection dc, DateModifications dm) {
 
-		double [] results = new double [2];
+		double [] results = new double [4];
 		double initialValue = dc.valueOfPortfolio (port, strategyEndDate, dm);
 		results[0] = initialValue;
+		results[1] = port.cash;
 
 		try {
 			ClusterTradingStrategy cts = new ClusterTradingStrategy("cts", thresholdNumSD, volatilePercentage);
@@ -65,7 +69,8 @@ public class TestClasses {
 		}
 			
 		double finalValue = dc.valueOfPortfolio (port, strategyEndDate, dm);
-		results[1] = finalValue;
+		results[2] = finalValue;
+		results[3] = port.cash;
 
 		return results;
 	}
