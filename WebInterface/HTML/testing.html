@@ -1,0 +1,380 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>TradeLab - Testing</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+
+  <!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400" rel="stylesheet">
+	
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/style.css">
+
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
+
+	</head>
+	<body>
+		
+	<div class="colorlib-loader"></div>
+
+	<div id="page">
+		<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2">
+							<div id="colorlib-logo"><a href="index.html">TradeLab</a></div>
+						</div>
+						<div class="col-md-10 text-right menu-1">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li class="active"><a href="testing.html">Testing</a></li>
+								<li><a href="software.html">Software</a></li>
+								<li><a href="about.html">About</a></li>
+								<li><a href="contact.html">Contact</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<section id="home" class="video-hero" style="height: 700px; background-image: url(images/nyc_bg.jpg);  background-size:cover; background-position: center center;background-attachment:fixed;" data-section="home">
+		<div class="overlay"></div>
+			<div class="display-t display-t2 text-center">
+				<div class="display-tc display-tc2">
+					<div class="container">
+						<div class="col-md-12 col-md-offset-0">
+							<div class="animate-box">
+								<h2>Backtest</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<h1>    </h1>
+  		<div class="display-t display-t2 text-center">
+			<div class="display-tc display-tc2">
+				<div class="container">
+<!-- 				</div> -->
+<!-- 			</div>
+		</div> -->
+						
+  		<form method="get" action="http://localhost:3883/TradeLabApp/testing">
+
+    	<div class="colorlib-services colorlib-bg-white">
+			<div class="container">
+				<div class="display-t display-t2 text-center">
+					<div class="display-tc display-tc2">
+						<div class="animate-box">
+							<h3>COMPUTER GENERATED PORTFOLIO</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<p>How many stocks would you like to invest in?<br>
+								<input type="number" step=1 name="numStocks"><br>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<p>Do you prefer a diversified or uniform portfolio? <br>
+									<select name="diversity">
+							  		<option value="diverse">Diversified</option>
+							  		<option value="uniform">Uniform</option>
+									</select>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<p>Portfolio Start Date:<br>
+							    	<input type="date" id="start" name="portStartDate"
+							      	 value="" min="2000-01-01" max="2018-12-31"><br>
+							    	<p>Portfolio End Date:<br>
+							    	<input type="date" id="start" name="portEndDate"
+							      	 value="" min="2000-01-01" max="2018-12-31"><br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+ 	  		
+			<div class="container">
+<!--  	  		<div class="display-t display-t2 text-center">
+				<div class="display-tc display-tc2"> -->
+					<div class="animate-box">
+						<h3>USER GENERATED PORTFOLIO</h3>
+					</div>
+<!-- 					</div>
+				</div> -->
+			</div>
+				<div class="row">
+					<div class="col-md-6 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<p>Please enter your stocks, separated by commas<br>
+								<input type="text" name="listOfStocks"><br>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<p>Please enter the corresponding dollar amounts to invest, separated by commas <br><input type="text" name="listOfNumbers">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+ 		<div class="display-t display-t2 text-center">
+			<div class="display-tc display-tc2">
+				<div class="container">
+<!-- 				</div> -->
+<!-- 			</div>
+		</div> -->
+						
+  		<form method="get" action="http://localhost:3883/TradeLabApp/testing">
+
+    	<div class="colorlib-services colorlib-bg-white">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<h3>MEAN REVERSION:</h3>
+								<p>Choose a Threshold %:<br></b>
+    							<input type="number" step= "0.01" name="thresholdPercentage"><br>
+						    	<p>Choose a Fixed % to sell:<br></b>
+						    	<input type="number" step= "0.01" name="MRvolatilePercentage"><br>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<h3>MOVING-DAY AVERAGE:</h3>
+						    	<p>Choose a Fixed % to sell:<br></b>
+						    	<input type="number" step= "0.01" name="MDAvolatilePercentage"><br>
+						    	<p>Choose a Long-Run Time Frame:<br></b>
+						    	<input type="number" name="longRunFrame"><br>
+						    	<p>Choose a Short-Run Time Frame:<br></b>
+						    	<input type="number" name="shortRunFrame"><br>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<h3>CLUSTER TRADING:</h3>
+								<p>Choose a Threshold # of SD:<br></b>
+    							<input type="number" step= "0.01" name="thresholdNumSD"><br>
+						    	<p>Choose a Fixed % to sell:<br></b>
+						    	<input type="number" step= "0.01" name="CTvolatilePercentage"><br>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="display-t display-t2 text-center">
+			<div class="display-tc display-tc2">
+				<div class="container">
+<!-- 				</div> -->
+<!-- 			</div>
+		</div> -->
+						
+  		<form method="get" action="http://localhost:3883/TradeLabApp/testing">
+
+    	<div class="colorlib-services colorlib-bg-white">
+			<div class="container">
+				<div class="display-t display-t2 text-center">
+					<div class="display-tc display-tc2">
+						<div class="animate-box">
+							<h3>FINISHING TOUCHES</h3>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<p>Strategy Start Date: <br>
+								<input type="date" id="start" name="strategyStartDate" value="2012-01-01" min="2000-01-01" max="2018-12-31"><br>
+								<p>Strategy End Date: <br>
+								<input type="date" id="end" name="strategyEndDate" value="2012-01-01" min="2000-01-01" max="2018-12-31"><br>
+
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<p>Free Cash in Portfolio: <br>
+									<input type="number" step= "0.01" name="cash"><br>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<div class="desc">
+								<p>Confirm Portfolio Type<br>
+							    	<select name="portfolio">
+								  		<option value="k-Means">Computer-Generated</option>
+								  		<option value="userInput">User-Generated</option>
+										</select><br>
+						    	<p>Confirm Strategy:<br>
+							    	<select name="strategy">
+								  		<option value="Threshold">Mean-Reversion</option>
+								  		<option value="MDA">Moving-Day Average</option>
+								  		<option value="Pairs">Pairs Trading</option>
+								 		<option value="Cluster">Cluster Trading</option>
+									</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+    		<input type="submit" class="btn btn-primary btn-lg btn-custom" value="Trade!">
+  		</form>
+  		</div>
+		</div>
+		</div>
+		</div>
+		</div>
+<!-- 	</div>
+ -->  		<h1>    </h1>
+
+		<footer id="colorlib-footer">
+			<div class="container">
+				<div class="row row-pb-md">
+					<div class="col-md-3 colorlib-widget">
+						<h4>About TradeLab</h4>
+						<p> Pet Project<br> Computer Science x Economics <br>
+						Summer 2019</p>
+<!-- 						<p>
+							<ul class="colorlib-social-icons">
+								<li><a href="#"><i class="icon-twitter"></i></a></li>
+								<li><a href="#"><i class="icon-facebook"></i></a></li>
+								<li><a href="#"><i class="icon-linkedin"></i></a></li>
+								<li><a href="#"><i class="icon-dribbble"></i></a></li>
+							</ul>
+						</p> -->
+					</div>
+					<div class="col-md-3 colorlib-widget">
+						<h4>Information</h4>
+						<p>
+							<ul class="colorlib-footer-links">
+								<li><a href="#"><i class="icon-check"></i> Home</a></li>
+								<li><a href="#"><i class="icon-check"></i> Testing</a></li>
+								<li><a href="#"><i class="icon-check"></i> Software</a></li>
+								<li><a href="#"><i class="icon-check"></i> About</a></li>
+								<li><a href="#"><i class="icon-check"></i> Contact</a></li>
+							</ul>
+						</p>
+					</div>
+
+					<div class="col-md-3 colorlib-widget">
+						<h4>Success Stories</h4>
+						<p> Coming Soon!</p>
+					</div>
+
+					<div class="col-md-3 colorlib-widget">
+<!-- 						REDACTED FOR PRIVACY
+ -->					</div>
+				</div>
+			</div>
+			<div class="copy">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<p>
+								 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br> 
+								Demo Images: <a href="http://unsplash.co/" target="_blank">Unsplash</a>, <a href="http://pexels.com/" target="_blank">Pexels</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
+	</div>
+	
+	<!-- jQuery -->
+	<script src="js/jquery.min.js"></script>
+	<!-- jQuery Easing -->
+	<script src="js/jquery.easing.1.3.js"></script>
+	<!-- Bootstrap -->
+	<script src="js/bootstrap.min.js"></script>
+	<!-- Waypoints -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="js/jquery.stellar.min.js"></script>
+	<!-- YTPlayer -->
+	<script src="js/jquery.mb.YTPlayer.min.js"></script>
+	<!-- Owl carousel -->
+	<script src="js/owl.carousel.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/magnific-popup-options.js"></script>
+	<!-- Counters -->
+	<script src="js/jquery.countTo.js"></script>
+	<!-- Main -->
+	<script src="js/main.js"></script>
+
+	</body>
+</html>
+
