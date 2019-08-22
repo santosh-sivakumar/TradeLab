@@ -153,14 +153,13 @@ public class PortfolioMaker {
 	// iterates through list of clusters, arbitrarily picks a single stock from each cluster
 	// finds share price on starting date, computes number of shares given amt of cash specified
 	// assembles + returns portfolio of arbitrarily selected vectors
-	public Portfolio diversekMeans (String filename, int numClusters, String startDate,double cash, String endDate, String strategyStartDate, String strategyEndDate, DataCollection dc, DateModifications dm, ArrayList<String> vectorNames) {
+	public Portfolio diversekMeans (String filename, int numClusters, String startDate, double cash, String endDate, String strategyStartDate, String strategyEndDate, DataCollection dc, DateModifications dm, ArrayList<String> vectorNames) {
 
 		ArrayList<String> stocksInPortfolio = new ArrayList<String>();
 		ArrayList<Double> valuesInPortfolio = new ArrayList<Double>();
 
 		try {
 			ArrayList<Vector> stockVectors = createVectors (filename, startDate, endDate, dc, dm, vectorNames);
-			
 			KMeans kMeans = new KMeans();
 			ArrayList<ArrayList<Vector>> listOfClusters = kMeans.cluster (stockVectors, numClusters);
 			
@@ -260,7 +259,7 @@ public class PortfolioMaker {
 		try {
 			ArrayList<Vector> stockVectors = createVectors (filename, startDate, endDate,dc, dm, vectorNames);
 			KMeans kMeans = new KMeans();
-			ArrayList<ArrayList<Vector>> listOfClusters = kMeans.cluster (stockVectors, numClusters);
+			ArrayList<ArrayList<Vector>> listOfClusters = kMeans.cluster (stockVectors, (stockVectors.size()/numClusters));
 
 			ArrayList<String> stocksToAdd = new ArrayList<String>();
 
@@ -335,4 +334,4 @@ public class PortfolioMaker {
 		return port;
 	}
 
-}		
+}
