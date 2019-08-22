@@ -7,22 +7,20 @@ import java.util.ArrayList;
 public class ClusterTradingStrategy {
 
 	String name;
-	Double clusterAvg;
 	Double thresholdNumSD;
 	Double volatilePercentage;
 	
 	ClusterTradingStrategy (String inputName, Double inputThresholdNumSD, Double inputVolatilePercentage) {
 
 		name = inputName;
-		clusterAvg = 0.0;
 		thresholdNumSD = inputThresholdNumSD;
-		volatilePercentage = inputVolatilePercentage;	
+		volatilePercentage = (0.01 * inputVolatilePercentage);	
 	}
 
 	// method computes percentage change in a given stock for a given day
 	// generates previous trading date from decrement method in dc object
 	// retrieves stock's share price on current, previous days
-	// compures + returns percent change (diff in share prices/original share price)
+	// computes + returns percent change (diff in share prices/original share price)
 	private double computePercentChange (String stockName, String stockDate, DataCollection dc, DateModifications dm) {
 
 		assert (dc.checkIfVectorDataExists(stockName, stockDate)) : "Incompatible date provided";
@@ -86,7 +84,7 @@ public class ClusterTradingStrategy {
 
 		double currNumShares = (port.valuesInPortfolio).get(stockIndex);
 		double currPriceOfShare = dc.dataPoints.get(stockID).close;
-		double numSharesToSell = currNumShares * (0.01 * volatilePercentage);
+		double numSharesToSell = currNumShares * (volatilePercentage);
 		double dollarsToMake = currPriceOfShare * numSharesToSell;
 		port.cash += dollarsToMake;
 		double updatedNumShares = (port.valuesInPortfolio).get(stockIndex) - numSharesToSell;
@@ -132,12 +130,14 @@ public class ClusterTradingStrategy {
 			String stockName = (port.stocksInPortfolio).get(index);
 			String stockID = (stockName + "#" + stockDate);
 			double stockPrice = dc.dataPoints.get(stockID).close;
+			double zScore = computeZScore(stockPrice, mean, standardDev);
+			System.out.println(zScore);
 
-			if (computeZScore(stockPrice, mean, standardDev) < (thresholdNumSD * -1)) {
+			if (zScore < (thresholdNumSD * -1)) {
 				indexOfStocksToBuy.add(index);
 			}
 			
-			if (computeZScore(stockPrice, mean, standardDev) > thresholdNumSD) {
+			if (zScore > thresholdNumSD) {
 				rebalancePortfolioSell(port, index, stockID, dc);
 			}
 		}
