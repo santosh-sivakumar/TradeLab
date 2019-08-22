@@ -13,8 +13,8 @@ public class MeanReversionStrategy {
 	MeanReversionStrategy (String inputName, double inputThresholdPercentage, double inputVolatilePercentage) {
 
 		name = inputName;
-		thresholdPercentage = inputThresholdPercentage;
-		volatilePercentage = inputVolatilePercentage;
+		thresholdPercentage = inputThresholdPercentage / 100.0;
+		volatilePercentage = inputVolatilePercentage / 100.0;
 		initialStockValues = new ArrayList<Double>();
 	}
 
@@ -151,13 +151,12 @@ public class MeanReversionStrategy {
 		String currDate = startDate;
 
 		while (!currDate.equals(endDate)) {
+			System.out.println(port.valuesInPortfolio);
 			update (port, currDate, dc);
 			currDate = dm.incrementDate(currDate);
 			while (!dc.checkIfPortfolioDataExists(port, currDate)) {
 				currDate = dm.incrementDate(currDate);
 			}
-			System.out.println(dc.valueOfPortfolio(port,currDate, dm));
-			System.out.println(port.cash);
 		}
 	}
 }
