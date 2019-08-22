@@ -18,7 +18,7 @@ public class MDAStrategy {
 		name = inputName;
 		longRunFrame = inputLongRunFrameFrame;
 		shortRunFrame = inputShortRunFrameFrame;
-		volatilePercentage = inputVolatilePercentage;
+		volatilePercentage = inputVolatilePercentage / 100.00;
 	}
 
 	// public method to initialize instance of MDA strategy on given date
@@ -42,7 +42,7 @@ public class MDAStrategy {
 		
 		double currNumShares = (port.valuesInPortfolio).get(stockIndex);
 		double currPriceOfShare = dc.dataPoints.get(stockID).close;
-		double numSharesToSell = currNumShares * (0.01 * volatilePercentage);
+		double numSharesToSell = currNumShares * (volatilePercentage);
 		double dollarsToMake = currPriceOfShare * numSharesToSell;
 		port.cash += dollarsToMake;
 		double updatedNumShares = (port.valuesInPortfolio).get(stockIndex) - numSharesToSell;
@@ -199,7 +199,6 @@ public class MDAStrategy {
 			while (!dc.checkIfPortfolioDataExists(port, currDate)) {
 				currDate = dm.incrementDate(currDate);
 			}
-			System.out.println(dc.valueOfPortfolio(port,currDate, dm));
 		}
 	}
 
