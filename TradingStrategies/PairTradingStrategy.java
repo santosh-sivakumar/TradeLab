@@ -6,12 +6,12 @@ public class PairTradingStrategy {
 	Double thresholdPercentage;
 	Double volatilePercentage;
 	
-	PairTradingStrategy (double thresholdPercentage, double volatilePercentage) {
+	PairTradingStrategy (double inputThresholdPercentage, double inputTolatilePercentage) {
 	// public class to initialize new instance of the Pair Trading Strategy
 	// threshold percentage = range outside of which stocks should be sold/bought
 	// volatile percentage = what fraction of stock should be sold when deciding to sell
 		avgRatio = 0.0;
-		thresholdPercentage = thresholdPercentage;
+		thresholdPercentage = (0.01 * thresholdPercentage);
 		volatilePercentage = volatilePercentage;
 	}
 
